@@ -1,0 +1,90 @@
+<!doctype html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Exemple de page</title>
+  <style>
+    :root { --bg:#f7f7f9; --card:#fff; --accent:#007acc; --muted:#666; font-family:Inter, system-ui, Arial, sans-serif; }
+    body { margin:0; background:var(--bg); color:#111; }
+    header { background:var(--card); padding:1rem 1.25rem; box-shadow:0 1px 0 rgba(0,0,0,.05); display:flex; align-items:center; justify-content:space-between; }
+    nav a { margin-left:.75rem; color:var(--accent); text-decoration:none; }
+    .container { max-width:900px; margin:2rem auto; padding:0 1rem; }
+    .card { background:var(--card); padding:1.25rem; border-radius:8px; box-shadow:0 6px 18px rgba(16,24,40,.06); }
+    footer { text-align:center; padding:1rem; color:var(--muted); font-size:.9rem; }
+    .grid { display:grid; grid-template-columns:1fr 280px; gap:1rem; align-items:start; }
+    @media (max-width:800px){ .grid{grid-template-columns:1fr} nav a{display:none} }
+    button { background:var(--accent); color:#fff; border:0; padding:.5rem .75rem; border-radius:6px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;gap:.75rem;align-items:center">
+      <strong>MonSite</strong>
+      <small style="color:var(--muted)">— démo rapide</small>
+    </div>
+    <nav>
+      <a href="#home">Accueil</a>
+      <a href="#about">À propos</a>
+      <a href="#contact">ontact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section class="card">
+        <h1 id="home">Bienvenue</h1>
+        <p>Ceci est une page HTML de démonstration, simple et responsive. Elle montre une mise en page de base, du style et un peu d'interactivité.</p>
+
+        <h2 id="about">À propos</h2>
+        <p style="color:var(--muted)">Éditez ce fichier pour commencer votre projet front-end.</p>
+
+        <form id="demoForm" style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <input name="name" placeholder="Votre nom" style="flex:1;padding:.5rem;border:1px solid #e6e6e6;border-radius:6px" />
+          <button type="submit">Envoyer</button>
+        </form>
+
+        <div id="msg" style="margin-top:.75rem;color:var(--accent);font-weight:600"></div>
+      </section>
+
+      <aside class="card">
+        <h3>Raccourcis</h3>
+        <ul style="padding-left:1rem;color:var(--muted)">
+          <li><a href="#home">Aller à l'accueil</a></li>
+          <li><a href="#about">Voir la section À propos</a></li>
+          <li><a href="#contact">Formulaire de contact</a></li>
+        </ul>
+
+        <div style="margin-top:1rem">
+          <button id="toggle">Basculer le contraste</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <small>© 2026 — Exemple minimal • Code fourni par assistant</small>
+  </footer>
+
+  <script>
+    document.getElementById('demoForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = (this.name.value || 'anonyme').trim();
+      const msg = document.getElementById('msg');
+      msg.textContent = `Bonjour ${name} — formulaire reçu !`;
+      this.reset();
+    });
+
+    document.getElementById('toggle').addEventListener('click', function(){
+      const root = document.documentElement;
+      if(root.style.getPropertyValue('--bg') === '#111') {
+        root.style.setProperty('--bg', '#f7f7f9'); root.style.setProperty('--card','#fff'); root.style.setProperty('--accent','#007acc');
+        document.body.style.color = '#111';
+      } else {
+        root.style.setProperty('--bg', '#111'); root.style.setProperty('--card','#111'); root.style.setProperty('--accent','#0ea5a4');
+        document.body.style.color = '#f7f7f9';
+      }
+    });
+  </script>
+</body>
+</html>
