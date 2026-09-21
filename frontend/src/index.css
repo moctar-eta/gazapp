@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #0a1230;
+  --color-navy-900: #0e1a3d;
+  --color-navy-800: #142352;
+  --color-navy-700: #1b2d63;
+  --color-teal-accent: #17c3b2;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  background-color: #eef1f8;
+}
+
+* {
+  scrollbar-width: thin;
+}

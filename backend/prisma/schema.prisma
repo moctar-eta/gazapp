@@ -1,0 +1,82 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BottleType {
+  B3
+  B6
+  B12
+}
+
+enum PaymentStatus {
+  PAYE
+  NON_PAYE
+}
+
+model MerchantSettings {
+  id    Int     @id @default(1)
+  name  String  @default("Bezeid")
+  phone String?
+}
+
+model BottlePrice {
+  type      BottleType @id
+  price     Decimal    @db.Decimal(10, 2)
+  updatedAt DateTime   @updatedAt
+}
+
+model DiscountPrice {
+  type      BottleType @id
+  price     Decimal    @db.Decimal(10, 2)
+  updatedAt DateTime   @updatedAt
+}
+
+model Sale {
+  id            Int           @id @default(autoincrement())
+  invoiceNumber String        @unique
+  buyerName     String
+  buyerPhone    String?
+  total         Decimal       @db.Decimal(10, 2)
+  status        PaymentStatus @default(PAYE)
+  createdAt     DateTime      @default(now())
+  items         SaleItem[]
+
+  @@index([buyerName])
+}
+
+model SaleItem {
+  id         Int        @id @default(autoincrement())
+  saleId     Int
+  sale       Sale       @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  bottleType BottleType
+  quantity   Int
+  unitPrice  Decimal    @db.Decimal(10, 2)
+  subtotal   Decimal    @db.Decimal(10, 2)
+}
+
+model DiscountSale {
+  id            Int            @id @default(autoincrement())
+  invoiceNumber String         @unique
+  buyerName     String
+  total         Decimal        @db.Decimal(10, 2)
+  createdAt     DateTime       @default(now())
+  items         DiscountItem[]
+
+  @@index([buyerName])
+}
+
+model DiscountItem {
+  id             Int          @id @default(autoincrement())
+  discountSaleId Int
+  discountSale   DiscountSale @relation(fields: [discountSaleId], references: [id], onDelete: Cascade)
+  bottleType     BottleType
+  quantity       Int
+  unitPrice      Decimal      @db.Decimal(10, 2)
+  subtotal       Decimal      @db.Decimal(10, 2)
+}
