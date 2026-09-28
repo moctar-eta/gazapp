@@ -5,11 +5,11 @@ import Toast from "../components/Toast";
 import { PhoneIcon, BottleIcon } from "../components/icons";
 
 const BOTTLE_META = {
-  B3: { size: "صغير", dot: "bg-teal-400" },
-  B6: { size: "متوسط", dot: "bg-teal-accent" },
-  B12: { size: "كبير جداً", dot: "bg-navy-700" },
+  b3: { size: "صغير", dot: "bg-teal-400" },
+  b6: { size: "متوسط", dot: "bg-teal-accent" },
+  b12: { size: "كبير جداً", dot: "bg-navy-700" },
 };
-const BOTTLE_TYPES = Object.keys(BOTTLE_META);
+const BOTTLE_TYPES = Object.keys(BOTTLE_META); // ["b3", "b6", "b12"] ✅
 
 export default function Settings() {
   const [phone, setPhone] = useState("");

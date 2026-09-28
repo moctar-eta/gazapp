@@ -261,13 +261,7 @@ export default function Discount() {
                     ))}
                   </div>
                   <div className="mt-2 flex items-center gap-4">
-                    <Link
-                      to={`/facture/reduction/${d.id}`}
-                      className="flex items-center gap-1 text-xs font-medium text-navy-900"
-                    >
-                      <DownloadIcon width="13" height="13" />
-                      عرض الفاتورة
-                    </Link>
+
                     <button
                       onClick={() => setConfirmDeleteId(d.id)}
                       disabled={deletingId === d.id}
